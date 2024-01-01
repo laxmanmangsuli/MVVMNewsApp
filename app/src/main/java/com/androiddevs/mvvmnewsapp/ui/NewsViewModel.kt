@@ -38,7 +38,7 @@ class NewsViewModel(
 
     init {
 
-        getBreakingNews("In")
+        getBreakingNews("us")
     }
 
     fun getBreakingNews(countryCode: String) = viewModelScope.launch {
