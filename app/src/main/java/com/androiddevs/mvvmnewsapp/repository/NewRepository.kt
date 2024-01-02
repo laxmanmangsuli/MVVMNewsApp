@@ -20,4 +20,7 @@ class NewRepository(
      fun getSavedNews()= db.getArticleDao().getAllArticles()
 
     fun deleteArticle(article: Article) = db.getArticleDao().deleteArticle(article)
+
+    fun getArticleByUrl(articleUrl: String) = db.getArticleDao().getArticleByUrl(articleUrl)
+    fun deleteArticleByUrl(articleUrl: String) =db.getArticleDao().deleteArticleByUrl(articleUrl)
 }

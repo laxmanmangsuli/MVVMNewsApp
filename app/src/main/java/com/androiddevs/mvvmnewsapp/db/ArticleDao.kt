@@ -21,4 +21,11 @@ interface ArticleDao {
 
     @Delete
     fun deleteArticle(article: Article)
+
+  @Query("SELECT * FROM articles WHERE url = :articleUrl")
+  fun getArticleByUrl(articleUrl: String): Article?
+
+  @Query("DELETE FROM articles WHERE url = :articleUrl")
+   fun deleteArticleByUrl(articleUrl: String)
+
 }

@@ -45,10 +45,11 @@ class NewsAdapter :RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
             holder.binding.tvTitle.text = article.title
             holder.binding.tvDescription.text = article.description
             holder.binding.tvPublishedAt.text = article.publishedAt
+            setOnClickListener {
+                onItemClickListener?.invoke(article)
+            }
         }
-        holder.itemView.setOnClickListener {
-            onItemClickListener?.invoke(article)
-        }
+
     }
 
     private var onItemClickListener :((Article)-> Unit)? = null

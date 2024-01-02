@@ -38,7 +38,7 @@ class NewsViewModel(
 
     init {
 
-        getBreakingNews("us")
+        getBreakingNews("in")
     }
 
     fun getBreakingNews(countryCode: String) = viewModelScope.launch {
@@ -92,6 +92,13 @@ class NewsViewModel(
     fun getSavedNews() =newRepository.getSavedNews()
 
     fun deleteArticle(article: Article) = newRepository.deleteArticle(article)
+
+    fun deleteArticleByUrl(articleUrl: String) = newRepository.deleteArticleByUrl(articleUrl)
+
+    fun isArticleSaved(articleUrl: String): Boolean {
+        val savedArticle = newRepository.getArticleByUrl(articleUrl)
+        return savedArticle != null
+    }
 
     private suspend fun safeSearchNewsCall(searchQuery: String){
         searchNews.postValue(Resource.Loading())

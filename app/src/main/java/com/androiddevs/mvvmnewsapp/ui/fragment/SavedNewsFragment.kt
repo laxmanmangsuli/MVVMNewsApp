@@ -13,6 +13,7 @@ import com.androiddevs.mvvmnewsapp.R
 import com.androiddevs.mvvmnewsapp.adapter.NewsAdapter
 import com.androiddevs.mvvmnewsapp.ui.NewsActivity
 import com.androiddevs.mvvmnewsapp.ui.NewsViewModel
+import com.androiddevs.mvvmnewsapp.util.isArticleSaved
 import com.androiddevs.mvvmnewsapp.util.navigateSafe
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
@@ -54,7 +55,6 @@ class SavedNewsFragment : Fragment(R.layout.fragment_saved_news) {
                 val position = viewHolder.adapterPosition
                 CoroutineScope(Dispatchers.IO).launch {
                     val article = newsAdapter.differ.currentList[position]
-
                     viewModel.deleteArticle(article)
                     Snackbar.make(view, "Successfully deleted article", Snackbar.LENGTH_SHORT)
                         .apply {
