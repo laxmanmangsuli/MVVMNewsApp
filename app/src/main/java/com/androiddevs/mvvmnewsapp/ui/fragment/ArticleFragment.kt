@@ -26,7 +26,6 @@ import kotlinx.coroutines.withContext
 class ArticleFragment : Fragment(R.layout.fragment_article) {
     private lateinit var viewModel: NewsViewModel
     private val args: ArticleFragmentArgs by navArgs()
-
     private var isArticleSaved = false
 
     private lateinit var binding: FragmentArticleBinding

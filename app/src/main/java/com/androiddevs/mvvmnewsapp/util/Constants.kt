@@ -19,6 +19,8 @@ class Constants {
     }
 
 }
+
+var isRedirectArticle = 0
 fun NavController.navigateSafe(
     @IdRes resId: Int,
     args: Bundle? = null,

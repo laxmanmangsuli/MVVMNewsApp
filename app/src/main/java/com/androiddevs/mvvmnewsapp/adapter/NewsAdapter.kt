@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.androiddevs.mvvmnewsapp.R
 import com.androiddevs.mvvmnewsapp.databinding.ItemArticlePreviewBinding
 import com.androiddevs.mvvmnewsapp.models.Article
+import com.androiddevs.mvvmnewsapp.util.isRedirectArticle
 import com.bumptech.glide.Glide
 
 class NewsAdapter :RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
@@ -40,6 +41,7 @@ class NewsAdapter :RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         val article =differ.currentList[position]
         holder.itemView.apply {
+
             Glide.with(this).load(article.urlToImage).into(holder.binding.ivArticleImage)
             holder.binding.tvSource.text = article.source?.name
             holder.binding.tvTitle.text = article.title

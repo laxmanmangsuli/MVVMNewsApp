@@ -1,11 +1,8 @@
 package com.androiddevs.mvvmnewsapp.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
@@ -17,10 +14,13 @@ import com.androiddevs.mvvmnewsapp.repository.NewRepository
 class NewsActivity : AppCompatActivity() {
 lateinit var viewModel: NewsViewModel
     private lateinit var binding: ActivityNewsBinding
+    private lateinit var viewModelBreak: BreakingNewsViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNewsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        viewModelBreak = ViewModelProvider(this).get(BreakingNewsViewModel::class.java)
 
         val repository = NewRepository(ArticleDatabase(this))
 
@@ -32,6 +32,11 @@ lateinit var viewModel: NewsViewModel
         binding.bottomNavigationView.setupWithNavController(navController.navController)
 
         binding.bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+          when(item.itemId){
+            R.id.breakingNewsFragment ->{
+                viewModelBreak.selectedArticle = null
+            }
+          }
             NavigationUI.onNavDestinationSelected(item, navController.navController)
         }
     }
