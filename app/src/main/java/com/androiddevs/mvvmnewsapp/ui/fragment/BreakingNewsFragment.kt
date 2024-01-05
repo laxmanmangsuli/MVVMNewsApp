@@ -10,28 +10,22 @@ import android.widget.AbsListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.androiddevs.mvvmnewsapp.R
 import com.androiddevs.mvvmnewsapp.adapter.NewsAdapter
 import com.androiddevs.mvvmnewsapp.databinding.FragmentBreakingNewsBinding
-import com.androiddevs.mvvmnewsapp.models.Article
-import com.androiddevs.mvvmnewsapp.ui.BreakingNewsViewModel
 import com.androiddevs.mvvmnewsapp.ui.NewsActivity
 import com.androiddevs.mvvmnewsapp.ui.NewsViewModel
 import com.androiddevs.mvvmnewsapp.util.Constants.Companion.QUERY_PAGE_SIZE
 import com.androiddevs.mvvmnewsapp.util.Resource
 import com.androiddevs.mvvmnewsapp.util.isRedirectArticle
-import com.androiddevs.mvvmnewsapp.util.navigateSafe
 
 class BreakingNewsFragment : Fragment() {
     lateinit var viewModel: NewsViewModel
-//    private lateinit var viewModelBreak: BreakingNewsViewModel
     lateinit var newsAdapter: NewsAdapter
     private lateinit var binding: FragmentBreakingNewsBinding
-//    private var selectedArticle: Article? = null
 
     var isLoading = false
     var isLastPage = false
@@ -42,7 +36,6 @@ class BreakingNewsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentBreakingNewsBinding.inflate(inflater, container, false)
-//        viewModelBreak = ViewModelProvider(requireActivity()).get(BreakingNewsViewModel::class.java)
         if (activity is NewsActivity) {
             (activity as NewsActivity).hideImageView()
         }
@@ -51,13 +44,10 @@ class BreakingNewsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        if (viewModelBreak.selectedArticle == null) {
             Log.e("TAG", "onViewCreated: null", )
             viewModel = (activity as NewsActivity).viewModel
             setupRecyclerView()
             newsAdapter.setOnItemClickListener { article ->
-//                selectedArticle = article
-//              viewModelBreak.selectedArticle = article
 
                 val bundle = Bundle().apply {
                     putSerializable("article", article)
@@ -96,32 +86,7 @@ class BreakingNewsFragment : Fragment() {
                     }
                 }
             })
-            isRedirectArticle++
         }
-//        else {
-//            Log.e("TAG", "onViewCreated: not null", )
-//            val selectedArticless = viewModelBreak.selectedArticle
-//
-//            selectedArticless?.let { article ->
-//                val bundle = Bundle().apply {
-//                    putSerializable("article", article)
-//                }
-//                findNavController().navigate(R.id.action_breakingNewsFragment_to_articleFragment, bundle)
-//            }
-//        }
-//    }
-
-//    override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
-//        outState.putSerializable("selectedArticle", selectedArticle)
-//    }
-//
-//    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-//        super.onViewStateRestored(savedInstanceState)
-//        selectedArticle = savedInstanceState?.getSerializable("selectedArticle") as? Article
-//    }
-
-
 
     private fun hideProgressBar() {
         binding.paginationProgressBar.visibility = View.INVISIBLE

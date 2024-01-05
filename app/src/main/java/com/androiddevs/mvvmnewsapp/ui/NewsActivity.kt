@@ -17,7 +17,6 @@ class NewsActivity : AppCompatActivity() {
 lateinit var viewModel: NewsViewModel
     lateinit var binding: ActivityNewsBinding
     private var bottomNavManager :BottomNavManager? = null
-    private lateinit var viewModelBreak: BreakingNewsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +24,6 @@ lateinit var viewModel: NewsViewModel
         setContentView(binding.root)
 
         setUpNavigationManager()
-        viewModelBreak = ViewModelProvider(this).get(BreakingNewsViewModel::class.java)
 
         val repository = NewRepository(ArticleDatabase(this))
 

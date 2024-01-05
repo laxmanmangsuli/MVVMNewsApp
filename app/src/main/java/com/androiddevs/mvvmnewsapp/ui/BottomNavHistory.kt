@@ -1,6 +1,7 @@
 package com.androiddevs.mvvmnewsapp.ui
 
 import android.os.Parcelable
+import android.util.Log
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
