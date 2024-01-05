@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.androiddevs.mvvmnewsapp.R
@@ -23,7 +24,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ArticleFragment : Fragment(R.layout.fragment_article) {
+class ArticleFragment() : Fragment(R.layout.fragment_article) {
     private lateinit var viewModel: NewsViewModel
     private val args: ArticleFragmentArgs by navArgs()
     private var isArticleSaved = false
@@ -35,12 +36,20 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentArticleBinding.inflate(inflater, container, false)
+        if (activity is NewsActivity) {
+            (activity as NewsActivity).showImageView()
+            (activity as NewsActivity)
+        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as NewsActivity).viewModel
+
+        (activity as NewsActivity).binding.ivBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         val article = args.article
         binding.webView.apply {

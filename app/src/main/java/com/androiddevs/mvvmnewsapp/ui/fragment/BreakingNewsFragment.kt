@@ -28,10 +28,10 @@ import com.androiddevs.mvvmnewsapp.util.navigateSafe
 
 class BreakingNewsFragment : Fragment() {
     lateinit var viewModel: NewsViewModel
-    private lateinit var viewModelBreak: BreakingNewsViewModel
+//    private lateinit var viewModelBreak: BreakingNewsViewModel
     lateinit var newsAdapter: NewsAdapter
     private lateinit var binding: FragmentBreakingNewsBinding
-    private var selectedArticle: Article? = null
+//    private var selectedArticle: Article? = null
 
     var isLoading = false
     var isLastPage = false
@@ -42,26 +42,31 @@ class BreakingNewsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentBreakingNewsBinding.inflate(inflater, container, false)
-        viewModelBreak = ViewModelProvider(requireActivity()).get(BreakingNewsViewModel::class.java)
+//        viewModelBreak = ViewModelProvider(requireActivity()).get(BreakingNewsViewModel::class.java)
+        if (activity is NewsActivity) {
+            (activity as NewsActivity).hideImageView()
+        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (viewModelBreak.selectedArticle == null) {
+//        if (viewModelBreak.selectedArticle == null) {
             Log.e("TAG", "onViewCreated: null", )
             viewModel = (activity as NewsActivity).viewModel
             setupRecyclerView()
             newsAdapter.setOnItemClickListener { article ->
-                selectedArticle = article
-              viewModelBreak.selectedArticle = article
+//                selectedArticle = article
+//              viewModelBreak.selectedArticle = article
+
                 val bundle = Bundle().apply {
                     putSerializable("article", article)
                 }
-                findNavController().navigateSafe(
-                    R.id.action_breakingNewsFragment_to_articleFragment,
-                    bundle
-                )
+                findNavController().navigate(R.id.action_breakingNewsFragment2_to_articleFragment2,bundle)
+//                findNavController().navigateSafe(
+//                    R.id.action_breakingNewsFragment_to_articleFragment,
+//                    bundle
+//                )
             }
             viewModel.breakingNews.observe(viewLifecycleOwner, Observer { response ->
                 when (response) {
@@ -93,28 +98,28 @@ class BreakingNewsFragment : Fragment() {
             })
             isRedirectArticle++
         }
-        else {
-            Log.e("TAG", "onViewCreated: not null", )
-            val selectedArticless = viewModelBreak.selectedArticle
+//        else {
+//            Log.e("TAG", "onViewCreated: not null", )
+//            val selectedArticless = viewModelBreak.selectedArticle
+//
+//            selectedArticless?.let { article ->
+//                val bundle = Bundle().apply {
+//                    putSerializable("article", article)
+//                }
+//                findNavController().navigate(R.id.action_breakingNewsFragment_to_articleFragment, bundle)
+//            }
+//        }
+//    }
 
-            selectedArticless?.let { article ->
-                val bundle = Bundle().apply {
-                    putSerializable("article", article)
-                }
-                findNavController().navigate(R.id.action_breakingNewsFragment_to_articleFragment, bundle)
-            }
-        }
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putSerializable("selectedArticle", selectedArticle)
-    }
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-        selectedArticle = savedInstanceState?.getSerializable("selectedArticle") as? Article
-    }
+//    override fun onSaveInstanceState(outState: Bundle) {
+//        super.onSaveInstanceState(outState)
+//        outState.putSerializable("selectedArticle", selectedArticle)
+//    }
+//
+//    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+//        super.onViewStateRestored(savedInstanceState)
+//        selectedArticle = savedInstanceState?.getSerializable("selectedArticle") as? Article
+//    }
 
 
 

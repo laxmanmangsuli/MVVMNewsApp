@@ -36,6 +36,9 @@ class SavedNewsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSavedNewsBinding.inflate(inflater, container, false)
+        if (activity is NewsActivity) {
+            (activity as NewsActivity).hideImageView()
+        }
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,7 +51,7 @@ class SavedNewsFragment : Fragment() {
                     putSerializable("article", it)
                 }
                 findNavController().navigateSafe(
-                    R.id.action_savedNewsFragment_to_articleFragment,
+                    R.id.action_savedNewsFragment2_to_articleFragment3,
                     bundle
                 )
             }

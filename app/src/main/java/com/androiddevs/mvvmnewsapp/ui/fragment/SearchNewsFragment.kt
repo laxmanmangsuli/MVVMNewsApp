@@ -43,6 +43,10 @@ class SearchNewsFragment : Fragment() {
     ): View {
         binding = FragmentSearchNewsBinding.inflate(inflater, container, false)
 
+        if (activity is NewsActivity) {
+            (activity as NewsActivity).hideImageView()
+        }
+
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,7 +59,7 @@ class SearchNewsFragment : Fragment() {
                 putSerializable("article",it)
             }
             findNavController().navigateSafe(
-                R.id.action_searchNewsFragment_to_articleFragment ,
+                R.id.action_searchNewsFragment2_to_articleFragment4 ,
                 bundle
             )
         }
